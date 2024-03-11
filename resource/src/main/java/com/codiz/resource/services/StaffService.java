@@ -17,6 +17,7 @@ public class StaffService {
 
     private final StaffRepository staffRepository;
 
+    //registering a staff
     public StaffModel registerStaff(StaffRegistrationDetails regDetails) {
         log.info("service to register staff");
         StaffModel newStaff = null;
@@ -45,6 +46,8 @@ public class StaffService {
         }
         return newStaff;
     }
+
+    //getting all staff
     public List<StaffModel> getAllStaff() {
         log.info("service to get all the staff was called");
         List<StaffModel> staffs;
@@ -54,5 +57,23 @@ public class StaffService {
             throw new RuntimeException("no staff exist");
         }
         return staffs;
+    }
+
+    //getting a specific staff by id
+
+    public StaffModel getStaff(Long id) {
+        log.info("getting a staff");
+        StaffModel staff;
+        try {
+            staff = staffRepository.findById(id).get();
+            if (!staffRepository.existsById(id))
+            {
+                throw new RuntimeException("the staff does not exist");
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException("the staff does not exist");
+        }
+        return staff;
     }
 }

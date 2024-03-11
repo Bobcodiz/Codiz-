@@ -30,4 +30,11 @@ public class StaffController {
         log.info("request to get all staff");
         return staffService.getAllStaff();
     }
+
+    @GetMapping("/get/{id}")
+    public StaffModel getStaff(@PathVariable Long id)
+    {
+        log.info("request to get staff with id : "+id);
+        return staffService.getStaff(id);
+    }
 }
