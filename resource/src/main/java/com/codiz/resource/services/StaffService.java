@@ -5,6 +5,8 @@ import com.codiz.resource.models.StaffModel;
 import com.codiz.resource.repository.StaffRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -97,5 +99,19 @@ public class StaffService {
             throw new RuntimeException("the staff does not exist");
         }
         return updated;
+    }
+
+    public ResponseEntity deleteStaff(Long id){
+        log.info("service to delete a staff");
+        try {
+            if (staffRepository.existsById(id))
+            {
+                staffRepository.deleteById(id);
+
+            }
+        }catch (Exception e){
+            throw new RuntimeException("could not delete staff");
+        }
+        return new ResponseEntity<>("deletion successful",HttpStatus.OK);
     }
 }

@@ -5,6 +5,8 @@ import com.codiz.resource.models.StaffModel;
 import com.codiz.resource.services.StaffService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -44,5 +46,11 @@ public class StaffController {
     {
         log.info("request to update staff details");
         return staffService.updateStaff(id,details);
+    }
+
+    @DeleteMapping("/delete-staff/{id}")
+    public ResponseEntity deleteStaff(@PathVariable Long id){
+        log.info("request to delete a staff");
+        return new ResponseEntity(staffService.deleteStaff(id), HttpStatus.OK);
     }
 }
