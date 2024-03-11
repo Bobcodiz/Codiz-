@@ -37,4 +37,12 @@ public class StaffController {
         log.info("request to get staff with id : "+id);
         return staffService.getStaff(id);
     }
+
+    @PutMapping("/update-staff/{id}")
+    public StaffModel updateStaff(@PathVariable Long id,
+                                  @RequestBody StaffRegistrationDetails details)
+    {
+        log.info("request to update staff details");
+        return staffService.updateStaff(id,details);
+    }
 }

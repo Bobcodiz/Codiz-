@@ -76,4 +76,26 @@ public class StaffService {
         }
         return staff;
     }
+
+    public StaffModel updateStaff(Long id,StaffRegistrationDetails details){
+        log.info("service to update a staff");
+        StaffModel updated = null;
+        try{
+
+            StaffModel staffModel = staffRepository.findById(id).get();
+            staffModel.setFirstName(details.getFirstName());
+            staffModel.setLastName(details.getLastName());
+            staffModel.setPhoneNumber(details.getPhoneNumber());
+            staffModel.setEmail(details.getEmail());
+
+            if(staffRepository.existsById(id)){
+                log.info("updating staff");
+                updated = staffRepository.save(staffModel);
+            }
+
+        }catch (Exception e){
+            throw new RuntimeException("the staff does not exist");
+        }
+        return updated;
+    }
 }
