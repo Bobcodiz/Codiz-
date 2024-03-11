@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -43,5 +44,15 @@ public class StaffService {
             throw new RuntimeException("could not register staff");
         }
         return newStaff;
+    }
+    public List<StaffModel> getAllStaff() {
+        log.info("service to get all the staff was called");
+        List<StaffModel> staffs;
+        try {
+            staffs = staffRepository.findAll();
+        } catch (Exception e) {
+            throw new RuntimeException("no staff exist");
+        }
+        return staffs;
     }
 }
