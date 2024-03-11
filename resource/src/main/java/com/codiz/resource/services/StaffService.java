@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -25,7 +27,17 @@ public class StaffService {
             staff.setPhoneNumber(regDetails.getPhoneNumber());
             staff.setPassword(regDetails.getPassword());
 
-            newStaff = staffRepository.save(staff);
+            log.info("checking if the staff already exist by email");
+            if (!staffRepository.existsStaffModelByEmail(regDetails.getEmail()))
+            {
+                log.info("inserting the new staff");
+                newStaff = staffRepository.save(staff);
+            }else {
+                log.info("the user already exist");
+                throw new RuntimeException("could not insert user");
+            }
+
+
 
         } catch (Exception e) {
             throw new RuntimeException("could not register staff");
