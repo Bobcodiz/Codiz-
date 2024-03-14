@@ -1,0 +1,28 @@
+package com.codiz.resource.controller;
+
+import com.codiz.resource.dto.StudentDetails;
+import com.codiz.resource.models.StudentModel;
+import com.codiz.resource.services.StudentService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@Slf4j
+@RequiredArgsConstructor
+@RequestMapping("/api/students")
+public class StudentController {
+    private final StudentService studentService;
+
+    @PostMapping("/register")
+    public ResponseEntity<StudentModel> register(StudentDetails details)
+    {
+        log.info("request to register a student was made");
+        return ResponseEntity.status(HttpStatus.CREATED).body(studentService.register(details));
+    }
+
+}

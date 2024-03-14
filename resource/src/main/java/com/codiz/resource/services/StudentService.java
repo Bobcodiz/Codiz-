@@ -14,7 +14,7 @@ public class StudentService {
 
     private final StudentRepository studentRepository;
 
-    public StudentModel studentModel(StudentDetails details)
+    public StudentModel register(StudentDetails details)
     {
         log.info("service to insert student details");
         StudentModel model = new StudentModel();
