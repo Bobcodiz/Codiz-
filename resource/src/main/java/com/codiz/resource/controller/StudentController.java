@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @Slf4j
 @RequiredArgsConstructor
@@ -29,5 +31,18 @@ public class StudentController {
     {
         log.info("request to update student details");
         return ResponseEntity.status(HttpStatus.OK).body(studentService.update(regNo,details));
+    }
+
+    @GetMapping("/find-all")
+    public ResponseEntity<List<StudentModel>> getAllStudents()
+    {
+        log.info("request to get all students");
+        return ResponseEntity.status(HttpStatus.FOUND).body(studentService.getAllStudents());
+    }
+    @GetMapping("/find/{regNo}")
+    public ResponseEntity<StudentModel> getStudent(@PathVariable String regNo)
+    {
+        log.info("request to get one student by reg no");
+        return ResponseEntity.status(HttpStatus.FOUND).body(studentService.getStudent(regNo));
     }
 }

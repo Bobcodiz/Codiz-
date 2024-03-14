@@ -10,4 +10,6 @@ import java.util.Optional;
 @Repository
 public interface StudentRepository extends JpaRepository<StudentModel,Long> {
     StudentModel findStudentByRegNo(String regNo);
+
+
 }

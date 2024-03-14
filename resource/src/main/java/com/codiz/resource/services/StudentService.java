@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -44,5 +46,26 @@ public class StudentService {
             throw new RuntimeException("could not update student");
         }
         return studentRepository.save(student);
+    }
+
+    public List<StudentModel> getAllStudents()
+    {
+        log.info("service to get all students");
+        try {
+            return studentRepository.findAll();
+        }catch (Exception e){
+            throw new RuntimeException("could not get the students");
+        }
+    }
+
+    public StudentModel getStudent(String regNo)
+    {
+        log.info("service to get a student");
+        try {
+            StudentModel student = new StudentModel();
+            return studentRepository.findStudentByRegNo(regNo);
+        }catch (Exception e){
+            throw new RuntimeException("error occurred");
+        }
     }
 }
