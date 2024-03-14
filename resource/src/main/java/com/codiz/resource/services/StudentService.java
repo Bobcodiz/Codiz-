@@ -5,6 +5,7 @@ import com.codiz.resource.models.StudentModel;
 import com.codiz.resource.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -66,6 +67,17 @@ public class StudentService {
             return studentRepository.findStudentByRegNo(regNo);
         }catch (Exception e){
             throw new RuntimeException("error occurred");
+        }
+    }
+
+    public List<StudentModel> getAllStudentByGrade(String grade)
+    {
+        log.info("getting all students by grade");
+        try {
+            return studentRepository.findStudentsByGrade(grade);
+        }catch (Exception e)
+        {
+            throw new RuntimeException("could not find students");
         }
     }
 }

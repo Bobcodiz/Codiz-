@@ -45,4 +45,10 @@ public class StudentController {
         log.info("request to get one student by reg no");
         return ResponseEntity.status(HttpStatus.FOUND).body(studentService.getStudent(regNo));
     }
+    @GetMapping("/find-by-grades/{grade}")
+    public ResponseEntity<List<StudentModel>> findAllByGrade(@PathVariable String grade)
+    {
+        log.info("request to get students by grade");
+        return ResponseEntity.status(HttpStatus.FOUND).body(studentService.getAllStudentByGrade(grade));
+    }
 }
