@@ -63,8 +63,8 @@ public class StudentService {
     {
         log.info("service to get a student");
         try {
-            StudentModel student = new StudentModel();
-            return studentRepository.findStudentByRegNo(regNo);
+            StudentModel student = studentRepository.findStudentByRegNo(regNo);
+            return student;
         }catch (Exception e){
             throw new RuntimeException("error occurred");
         }
