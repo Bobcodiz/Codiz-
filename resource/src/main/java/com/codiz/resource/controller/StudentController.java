@@ -7,9 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Slf4j
@@ -19,10 +17,17 @@ public class StudentController {
     private final StudentService studentService;
 
     @PostMapping("/register")
-    public ResponseEntity<StudentModel> register(StudentDetails details)
+    public ResponseEntity<StudentModel> register(@RequestBody StudentDetails details)
     {
         log.info("request to register a student was made");
         return ResponseEntity.status(HttpStatus.CREATED).body(studentService.register(details));
     }
 
+    @PutMapping("/update/{regNo}")
+    public ResponseEntity<StudentModel> update(@PathVariable String regNo,
+                                               @RequestBody StudentDetails details)
+    {
+        log.info("request to update student details");
+        return ResponseEntity.status(HttpStatus.OK).body(studentService.update(regNo,details));
+    }
 }

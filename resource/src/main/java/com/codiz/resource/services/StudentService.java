@@ -19,6 +19,7 @@ public class StudentService {
         log.info("service to insert student details");
         StudentModel model = new StudentModel();
         try {
+            model.setRegNo(details.getRegNo());
             model.setFirstName(details.getFirstName());
             model.setLastName(details.getLastName());
             model.setGrade(details.getGrade());
@@ -26,5 +27,22 @@ public class StudentService {
             throw new RuntimeException("could not insert student");
         }
         return studentRepository.save(model);
+    }
+    public StudentModel update(String regNo,StudentDetails details)
+    {
+        log.info("service to update the students details");
+        StudentModel student = new StudentModel();
+        try {
+           student = studentRepository.findStudentByRegNo(regNo);
+           student.setRegNo(details.getRegNo());
+           student.setFirstName(details.getFirstName());
+           student.setLastName(details.getLastName());
+           student.setGrade(details.getGrade());
+        }catch (Exception e)
+        {
+
+            throw new RuntimeException("could not update student");
+        }
+        return studentRepository.save(student);
     }
 }
