@@ -23,9 +23,9 @@ public class BooksController {
     private final BooksService booksService;
 
     @PostMapping("/register")
-    public ResponseEntity<List<BooksModel>> registerBooks(@RequestBody List<BooksDetails> detailsList) {
+    public ResponseEntity<List<String>> registerBooks(@RequestBody List<BooksDetails> detailsList) {
         log.info("request to register new books");
-        List<BooksModel> registeredBooks = booksService.registerBook(detailsList);
+        List<String> registeredBooks = booksService.registerBook(detailsList);
         return ResponseEntity.status(HttpStatus.CREATED).body(registeredBooks);
     }
 
