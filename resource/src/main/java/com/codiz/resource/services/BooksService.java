@@ -17,24 +17,36 @@ import java.util.List;
 public class BooksService {
     private final BooksRepository repository;
 
-    public List<BooksModel> registerBook(BooksDetails details) {
+    public List<BooksModel> registerBook(List<BooksDetails> details) {
         log.info("registering book details");
 
         try {
-            BooksModel booksModel = new BooksModel(); // Create a new instance of BooksModel
-
-            // Set book details
-            booksModel.setBookNo(details.getBookNo());
-            booksModel.setBookName(details.getBookName());
-            booksModel.setSubject(details.getSubject());
-            booksModel.setBookClass(details.getBookClass());
+            List<BooksModel> booksModels = getBooksModels(details);
 
             // Save the book details using repository
-            return repository.saveAll(Collections.singletonList(booksModel));
+            return repository.saveAll(booksModels);
+           /* return repository.saveAll(Collections.singletonList(booksModel));*/
         } catch (Exception e) {
             log.error("Error registering book details", e);
-            throw new RuntimeException("Failed to register book details", e); // Throw RuntimeException with appropriate message and cause
+            throw new RuntimeException("Failed to register book details", e);
         }
+    }
+
+    private static List<BooksModel> getBooksModels(List<BooksDetails> details) {
+        List<BooksModel> booksModels = new ArrayList<>();
+        for(BooksDetails booksDetails: details)
+        {
+           BooksModel booksModel = new BooksModel();
+
+           booksModel.setBookNo(booksModel.getBookNo());
+           booksModel.setBookName(booksDetails.getBookName());
+           booksModel.setSubject(booksDetails.getSubject());
+           booksModel.setBookClass(booksModel.getBookClass());
+
+           booksModels.add(booksModel);
+
+        }
+        return booksModels;
     }
 
 }
