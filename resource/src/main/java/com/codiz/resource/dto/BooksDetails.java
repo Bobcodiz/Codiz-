@@ -7,5 +7,5 @@ public class BooksDetails {
     private String bookNo;
     private String bookName;
     private String subject;
-    private String bookClass;
+    private int bookClass;
 }

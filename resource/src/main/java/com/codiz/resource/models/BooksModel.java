@@ -13,5 +13,5 @@ public class BooksModel {
     private String bookNo;
     private String bookName;
     private String subject;
-    private String bookClass;
+    private int bookClass;
 }
