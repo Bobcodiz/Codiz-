@@ -39,10 +39,10 @@ public class BooksService {
         {
            BooksModel booksModel = new BooksModel();
 
-           booksModel.setBookNo(booksModel.getBookNo());
+           booksModel.setBookNo(booksDetails.getBookNo());
            booksModel.setBookName(booksDetails.getBookName());
            booksModel.setSubject(booksDetails.getSubject());
-           booksModel.setBookClass(booksModel.getBookClass());
+           booksModel.setBookClass(booksDetails.getBookClass());
 
            booksModels.add(booksModel);
 
