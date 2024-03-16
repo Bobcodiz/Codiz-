@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @Slf4j
@@ -33,4 +34,19 @@ public class BooksController {
         return ResponseEntity.status(HttpStatus.FOUND).body(booksService.getAllBooks());
     }
 
+    @GetMapping("/book/{bookNo}")
+    public ResponseEntity<BooksModel> getBookByNo(@PathVariable String bookNo)
+    {
+        log.info("request to get a book");
+        return ResponseEntity.status(HttpStatus.FOUND).body(booksService.getBookById(bookNo));
+    }
+
+    @GetMapping("/book")
+    public ResponseEntity<List<BooksModel>> findAllBooksBySubjectAndClass
+            (@RequestParam String subject,@RequestParam String bookClass)
+    {
+        log.info("request to find All Books By Subject And Class");
+        return ResponseEntity.status(HttpStatus.FOUND).body(booksService
+                .findAllBooksBySubjectAndClass(subject,bookClass));
+    }
 }

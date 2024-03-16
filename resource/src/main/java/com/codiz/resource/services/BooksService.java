@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -57,5 +58,39 @@ public class BooksService {
             throw new RuntimeException("error",e);
         }
     }
+    public BooksModel getBookById(String bookNo)
+    {
+        log.info("getting book by book number");
+        try {
+            return repository.findBooksModelByBookNo(bookNo);
+        }catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<BooksModel> findAllBooksBySubjectAndClass(String subject,String bookClass)
+    {
+        log.info("getting all books for the subject");
+        try {
+            return repository.findBooksModelsBySubjectAndBookClass(subject,bookClass);
+        }catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<BooksModel> updateBooks(List<BooksDetails> details)
+    {
+        log.info("updating the book details");
+        try {
+            List<BooksModel> booksModels = getBooksModels(details);
+
+            return repository.saveAll(booksModels);
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+    }
+
 
 }
