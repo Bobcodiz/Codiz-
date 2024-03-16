@@ -7,10 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,10 +20,17 @@ public class BooksController {
     private final BooksService booksService;
 
     @PostMapping("/register")
-    public ResponseEntity<List<String>> registerBooks(@RequestBody List<BooksDetails> detailsList) {
+    public ResponseEntity<List<BooksModel>> registerBooks(@RequestBody List<BooksDetails> detailsList) {
         log.info("request to register new books");
-        List<String> registeredBooks = booksService.registerBook(detailsList);
+        List<BooksModel> registeredBooks = booksService.registerBook(detailsList);
         return ResponseEntity.status(HttpStatus.CREATED).body(registeredBooks);
+    }
+
+    @GetMapping("/all-books")
+    public ResponseEntity<List<BooksModel>> getAllBooks()
+    {
+        log.info("request to get all books");
+        return ResponseEntity.status(HttpStatus.FOUND).body(booksService.getAllBooks());
     }
 
 }

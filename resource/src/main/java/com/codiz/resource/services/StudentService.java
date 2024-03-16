@@ -5,7 +5,6 @@ import com.codiz.resource.models.StudentModel;
 import com.codiz.resource.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

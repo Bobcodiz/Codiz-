@@ -16,21 +16,20 @@ import java.util.List;
 public class BooksService {
     private final BooksRepository repository;
 
-    public List<String> registerBook(List<BooksDetails> details) {
+    public List<BooksModel> registerBook(List<BooksDetails> details) {
         log.info("registering book details");
 
         try {
             List<BooksModel> booksModels = getBooksModels(details);
             log.info("starting the book insertions");
             // Save the book details using repository
-             repository.saveAll(booksModels);
-             log.info("insertions complete");
+            return repository.saveAll(booksModels);
+            /* log.info("insertions complete");*/
            /* return repository.saveAll(Collections.singletonList(booksModel));*/
         } catch (Exception e) {
             log.error("Error registering book details", e);
             throw new RuntimeException("Failed to register book details", e);
         }
-        return new ArrayList<>();
     }
 
     private static List<BooksModel> getBooksModels(List<BooksDetails> details) {
@@ -49,6 +48,14 @@ public class BooksService {
 
         }
         return booksModels;
+    }
+    public List<BooksModel> getAllBooks(){
+        log.info("getting all books");
+        try {
+            return repository.findAll();
+        }catch (Exception e){
+            throw new RuntimeException("error",e);
+        }
     }
 
 }
