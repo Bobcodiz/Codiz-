@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,7 +21,24 @@ public class BookIssuedService {
     {
         log.info("saving issued book");
         try {
-            return null;
+            List<BookIssued> bookIssueds = getIssuedBooks(details);
+            return issuedRepository.saveAll(bookIssueds);
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+    }
+    private static List<BookIssued> getIssuedBooks(List<BookIssuedDetails> details)
+    {
+        try {
+            List<BookIssued> issueds = new ArrayList<>();
+            for (BookIssuedDetails issuedDetails:details)
+            {
+                BookIssued issued = new BookIssued();
+                issued.setBooksModel(issuedDetails.getBooksModel());
+                issued.setStudentModel(issuedDetails.getStudentModel());
+                issueds.add(issued);
+            }
+            return issueds;
         }catch (Exception e){
             throw new RuntimeException(e);
         }
