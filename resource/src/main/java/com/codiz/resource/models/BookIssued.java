@@ -8,6 +8,13 @@ import lombok.Data;
 public class BookIssued {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String bookNo;
-    private String reNo;
+    private Long id;
+    @OneToOne
+    @JoinColumn(referencedColumnName = "bookNo")
+    private BooksModel booksModel;
+
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "regNo")
+    private StudentModel studentModel;
+
 }
